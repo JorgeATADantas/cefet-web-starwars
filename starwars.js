@@ -17,5 +17,45 @@ let musica = {
 
 play(musica, document.body)
 
+//Exercício 2: preencher lista de filmes
+//Requisição AJAX
 
 const API_ENDPOINT = 'https://swapi.info/api'
+
+import { decimalParaRomano } from './roman.js';
+
+
+fetch("https://swapi.info/api/films")
+.then((res) => res.json())
+.then(filmes => {filmes.forEach(insereFilme)})
+.catch((error) => console.error(error))
+
+
+function insereFilme(filme){  
+  // 1. Solicitamos ao document a criação de um elemento
+  let filmeE1 = document.createElement('li');
+
+  // 2. Configurando-lo (atributos, id, classes etc.)
+  // Converter número para romano
+  let romano = decimalParaRomano(filme.episode_id);
+
+  // alinhar usando padEnd
+  romano = romano.padEnd(4, ' ');
+
+  // conteúdo
+  filmeE1.innerHTML = `Episode ${romano} - ${filme.title}`;
+
+  // 3. Inserção do elemento na árvore DOM
+  let containerEl = document.querySelector('#filmes ul');
+  containerEl.appendChild(filmeE1);
+}
+
+//Excluindo filmes existentes
+let limparFilmesEl = document.querySelector('#filmes ul');
+limparFilmesEl.innerHTML = '';
+
+//Inserindo as tarefas na página
+filmes.forEach(insereFilme);
+
+
+
