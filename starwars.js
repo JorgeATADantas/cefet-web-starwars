@@ -46,16 +46,33 @@ function insereFilme(filme){
   filmeE1.innerHTML = `Episode ${romano} - ${filme.title}`;
 
   // 3. Inserção do elemento na árvore DOM
-  let containerEl = document.querySelector('#filmes ul');
-  containerEl.appendChild(filmeE1);
-}
+  let containerE1 = document.querySelector('#filmes ul');
+  containerE1.appendChild(filmeE1);
+
+  //Exercício 3: mostrar a "intro" ao clicar
+  filmeE1.addEventListener('click', () => {insereIntroducao(filme)});
+};
+
 
 //Excluindo filmes existentes
-let limparFilmesEl = document.querySelector('#filmes ul');
-limparFilmesEl.innerHTML = '';
+let limparFilmeE1 = document.querySelector('#filmes ul');
+limparFilmeE1.innerHTML = '';
 
-//Inserindo as tarefas na página
+//Inserindo os filmes na página
 filmes.forEach(insereFilme);
 
 
+//Exercício 3: mostrar a "intro" ao clicar
+import { restartAnimation } from './restart-animation.js';
 
+function insereIntroducao(filme){
+  let introducaoEl = document.querySelector('pre.introducao');
+
+  let romano = decimalParaRomano(filme.episode_id);
+
+  // Definindo o texto
+  introducaoEl.innerHTML = `Episode ${romano}\n${filme.title.toUpperCase()}\n\n${filme.opening_crawl}`;
+
+  // Reiniciando a animação
+  restartAnimation(introducaoEl);
+};
