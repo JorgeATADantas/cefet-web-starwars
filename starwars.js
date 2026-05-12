@@ -23,10 +23,12 @@ play(musica, document.body)
 const API_ENDPOINT = 'https://swapi.info/api'
 
 import { decimalParaRomano } from './roman.js';
+import { friendlyFetch } from './friendly-fetch.js'; // Opcional 5: fetch com cache no localStorage
 
 
-fetch("https://swapi.info/api/films")
-.then((res) => res.json())
+//fetch("https://swapi.info/api/films")
+//.then((res) => res.json())
+friendlyFetch("https://swapi.info/api/films") // Opcional 5: fetch com cache no localStorage
 .then(filmes => {
   filmes.sort(function (a, b) {
     return a.episode_id - b.episode_id; // Opcional 4: filmes em ordem numérica
@@ -41,13 +43,13 @@ function insereFilme(filme){
   let filmeE1 = document.createElement('li');
 
   // 2. Configurando-lo (atributos, id, classes etc.)
-  // Converter número para romano
+  // Convertendo número para romano
   let romano = decimalParaRomano(filme.episode_id);
 
-  // alinhar usando padEnd
+  // Alinhando usando padEnd
   romano = romano.padEnd(4, ' ');
 
-  // conteúdo
+  // Conteúdo
   filmeE1.innerHTML = `Episode ${romano} - ${filme.title}`;
 
   // 3. Inserção do elemento na árvore DOM
