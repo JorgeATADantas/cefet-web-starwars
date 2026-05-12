@@ -27,7 +27,12 @@ import { decimalParaRomano } from './roman.js';
 
 fetch("https://swapi.info/api/films")
 .then((res) => res.json())
-.then(filmes => {filmes.forEach(insereFilme)})
+.then(filmes => {
+  filmes.sort(function (a, b) {
+    return a.episode_id - b.episode_id; // Opcional 4: filmes em ordem numérica
+    });
+  filmes.forEach(insereFilme);
+})
 .catch((error) => console.error(error))
 
 
@@ -49,17 +54,13 @@ function insereFilme(filme){
   let containerE1 = document.querySelector('#filmes ul');
   containerE1.appendChild(filmeE1);
 
-  //Exercício 3: mostrar a "intro" ao clicar
+  //Exercício 3: mostrar a "intro" ao clicar (vide função abaixo)
   filmeE1.addEventListener('click', () => {insereIntroducao(filme)});
 };
-
 
 //Excluindo filmes existentes
 let limparFilmeE1 = document.querySelector('#filmes ul');
 limparFilmeE1.innerHTML = '';
-
-//Inserindo os filmes na página
-filmes.forEach(insereFilme);
 
 
 //Exercício 3: mostrar a "intro" ao clicar
